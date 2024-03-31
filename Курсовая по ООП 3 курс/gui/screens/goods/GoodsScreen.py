@@ -30,7 +30,7 @@ class GoodsScreen(MenuScreen):
         self.filter_entry.bind('<Return>', self.filter_data)
         self.filter_entry.bind("<Button-1>", self.filter_clear)
 
-        # Кнопка "Получить информацию".
+        # Кнопка "Информация".
         self.get_item_info_button = ColoredButton(self, width=15, text="Информация",
                                                   command=self.show_requested_info)
         self.get_item_info_button.place(relx=0.27, rely=0.3, anchor=CENTER)
@@ -147,7 +147,9 @@ class GoodsScreen(MenuScreen):
             return
 
         for i in self.items_listbox.curselection():
-            selected_item_title = re.sub(r"[0-9]+. [0-9]*", "", self.items_listbox.get(i))
+            pattern = r'^\d+\.\s(.*)$'
+            string = self.items_listbox.get(i)
+            selected_item_title = re.match(pattern, string).group(1)
 
         self.controller.db.delete_single_row_from_table("goods", "title", selected_item_title)
         self.user_message.config(text="Выбранная вещь успешно удалена из БД!", fg="green")
