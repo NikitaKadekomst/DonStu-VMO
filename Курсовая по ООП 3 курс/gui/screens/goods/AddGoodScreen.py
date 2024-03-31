@@ -3,9 +3,11 @@ from gui.screens.MenuScreen import *
 from gui.screens.MenuScreen import MenuScreen
 
 
+# Класс AddGoodScreen.
 # Экран приложения для добавления вещи в БД.
 # --------------------------------------------------------
-# Наследуется от класса Frame библиотеки Tkinter.
+# Наследуется от класса MenuScreen - базового шаблона
+# внутренних экранов приложения.
 # --------------------------------------------------------
 class AddGoodScreen(MenuScreen):
     def __init__(self, parent, controller):
@@ -16,11 +18,18 @@ class AddGoodScreen(MenuScreen):
         self.user_label.place(relx=0.5, rely=0.2, anchor=CENTER)
 
         # --Словарь базовых полей.
-        self.fields_info = {"Название": "title", "Категория": "category", "Бренд": "brand", "Цвета": "colors",
-                            "Цена": "price", "Описание": "description", "Структура": "structure"}
+        self.fields_info = {
+            "Название": "title",
+            "Категория": "category",
+            "Бренд": "brand",
+            "Цвета": "colors",
+            "Цена": "price",
+            "Описание": "description",
+            "Структура": "structure"
+        }
 
         # --Вывод полей.
-        self.print_fields(0.27, 0.32, 4)
+        self.print_fields(relx_start=0.27, rely_start=0.32, column_count=4)
 
         # --Кнопка "Добавить данные в базу".
         self.append_to_db_btn = ColoredButton(self, text="Добавить в базу данных", command=self.add_to_db)
