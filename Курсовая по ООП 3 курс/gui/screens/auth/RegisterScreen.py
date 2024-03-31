@@ -23,7 +23,10 @@ class RegisterScreen(AuthScreen):
                                              command=lambda: self.controller.show_frame(LoginScreenCLS))
         self.send_button.place(relx=0.5, rely=0.8, anchor=CENTER)
 
-    # Регистрация пользователя.
+    # RegisterScreen.register_user()
+    # ------------------------------------------------------
+    # Обработчик интерфейсного поведения пользователя
+    # при регистрации.
     # ------------------------------------------------------
     # Обработчик кнопки "Зарегистрироваться".
     # Проверяет корректность введенных данных.
@@ -32,6 +35,18 @@ class RegisterScreen(AuthScreen):
     def register_user(self, *args):
         username = self.username_entry.get()
         password = self.password_entry.get()
+
+        if username == "" and password == "":
+            self.access_message.configure(text="Введите данные для регистрации!", fg="red")
+            return
+
+        if username != "" and password == "":
+            self.access_message.configure(text="Введите пароль нового пользователя!", fg="red")
+            return
+
+        if username == "" and password != "":
+            self.access_message.configure(text="Введите имя нового пользователя!", fg="red")
+            return
 
         # Создает права для нового пользователя.
         new_user = self.controller.auth.register_new_user(username, password)
